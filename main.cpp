@@ -47,15 +47,28 @@ public:
 };
 
 int main() {
-    Vehicle car("Car", 60);
-    car.displayDetails();
-    car.accelerate(20);
+    Vehicle vehicles[3] = {
+        Vehicle("Car", 60),
+        Vehicle("Bus", 50),
+        Vehicle("Bike", 80)
+    };
 
-    cout << "\n";
+    for(int i = 0; i < 3; i++) {
+        vehicles[i].displayDetails();
+        vehicles[i].accelerate(10);
+        cout << "\n";
+    }
 
-    TrafficLight light("Red");
-    light.showColor();
-    light.changeColor("Green");
+    TrafficLight lights[2] = {
+        TrafficLight("Red"),
+        TrafficLight("Green")
+    };
+
+    for(int i = 0; i < 2; i++) {
+        lights[i].showColor();
+        lights[i].changeColor("Yellow");
+        cout << "\n";
+    }
 
     return 0;
 }
