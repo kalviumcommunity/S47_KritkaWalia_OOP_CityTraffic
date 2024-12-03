@@ -10,16 +10,19 @@ private:
     int speed;
 
 public:
-    Vehicle(string t, int s) : type(t), speed(s) {}
+    Vehicle(string type, int speed) {
+        this->type = type;
+        this->speed = speed;
+    }
 
     void displayDetails() {
-        cout << "Vehicle Type: " << type << "\n";
-        cout << "Speed: " << speed << " km/h\n";
+        cout << "Vehicle Type: " << this->type << "\n";
+        cout << "Speed: " << this->speed << " km/h\n";
     }
 
     void accelerate(int increment) {
-        speed += increment;
-        cout << type << " accelerates by " << increment << " km/h.\n";
+        this->speed += increment;
+        cout << this->type << " accelerates by " << increment << " km/h.\n";
     }
 };
 
@@ -29,25 +32,27 @@ private:
     string color;
 
 public:
-    TrafficLight(string c) : color(c) {}
+    TrafficLight(string color) {
+        this->color = color;
+    }
 
     void changeColor(string newColor) {
-        color = newColor;
-        cout << "Traffic light changes to " << color << ".\n";
+        this->color = newColor;
+        cout << "Traffic light changes to " << this->color << ".\n";
     }
 
     void showColor() {
-        cout << "Current Traffic Light Color: " << color << "\n";
+        cout << "Current Traffic Light Color: " << this->color << "\n";
     }
 };
 
 int main() {
+
     // Dynamic memory allocation for Vehicle
     Vehicle* car = new Vehicle("Car", 60);
     car->displayDetails();
     car->accelerate(20);
 
-    cout << "\n";
 
     // Dynamic memory allocation for TrafficLight
     TrafficLight* light = new TrafficLight("Red");
@@ -57,6 +62,7 @@ int main() {
     // Freeing allocated memory
     delete car;
     delete light;
+
 
     return 0;
 }
