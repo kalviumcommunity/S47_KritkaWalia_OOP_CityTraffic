@@ -42,15 +42,21 @@ public:
 };
 
 int main() {
-    Vehicle car("Car", 60);
-    car.displayDetails();
-    car.accelerate(20);
+    // Dynamic memory allocation for Vehicle
+    Vehicle* car = new Vehicle("Car", 60);
+    car->displayDetails();
+    car->accelerate(20);
 
     cout << "\n";
 
-    TrafficLight light("Red");
-    light.showColor();
-    light.changeColor("Green");
+    // Dynamic memory allocation for TrafficLight
+    TrafficLight* light = new TrafficLight("Red");
+    light->showColor();
+    light->changeColor("Green");
+
+    // Freeing allocated memory
+    delete car;
+    delete light;
 
     return 0;
 }
