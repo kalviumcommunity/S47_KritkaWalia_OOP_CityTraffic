@@ -22,13 +22,13 @@ public:
     }
 
     void displayDetails() {
-        cout << "Vehicle Type: " << this->type << "\n";
-        cout << "Speed: " << this->speed << " km/h\n";
+        cout << "Vehicle Type: " << type << "\n";
+        cout << "Speed: " << speed << " km/h\n";
     }
 
     void accelerate(int increment) {
-        this->speed += increment;
-        cout << this->type << " accelerates by " << increment << " km/h.\n";
+        speed += increment;
+        cout << type << " accelerates by " << increment << " km/h.\n";
     }
 
     // Static function to access the static variable
@@ -57,12 +57,12 @@ public:
     }
 
     void changeColor(string newColor) {
-        this->color = newColor;
-        cout << "Traffic light changes to " << this->color << ".\n";
+        color = newColor;
+        cout << "Traffic light changes to " << color << ".\n";
     }
 
     void showColor() {
-        cout << "Current Traffic Light Color: " << this->color << "\n";
+        cout << "Current Traffic Light Color: " << color << "\n";
     }
 
     // Static function to access the static variable
@@ -74,7 +74,7 @@ public:
 int TrafficLight::lightCount = 0; // Initialize static variable
 
 int main() {
-// Dynamic memory allocation for Vehicle
+    // Dynamic memory allocation for Vehicle
     Vehicle* car = new Vehicle("Car", 60);
     car->displayDetails();
     car->accelerate(20);
