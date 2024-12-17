@@ -12,13 +12,20 @@ private:
     // Static variable to track the number of Vehicle instances
     static int vehicleCount;
 
+    // Static variable to track the number of Vehicle instances
+    static int vehicleCount;
+
 public:
+
     // Constructor to initialize vehicle attributes and increment count
+
     Vehicle(string t, int s) : type(t), speed(s) {
         vehicleCount++;
     }
 
+
     // Destructor to decrement count when a Vehicle is destroyed
+
     ~Vehicle() {
         vehicleCount--;
     }
@@ -34,14 +41,17 @@ public:
         cout << type << " accelerates by " << increment << " km/h.\n";
     }
 
+
     // Static function to display the total number of Vehicle instances
+
     static void displayVehicleCount() {
         cout << "Total Vehicles: " << vehicleCount << "\n";
     }
 };
 
-// Initialize the static variable
-int Vehicle::vehicleCount = 0;
+
+int Vehicle::vehicleCount = 0; // Initialize static variable
+
 
 // Class 2: TrafficLight
 class TrafficLight {
@@ -51,13 +61,19 @@ private:
     // Static variable to track the number of TrafficLight instances
     static int lightCount;
 
+    // Static variable to track the number of TrafficLight instances
+    static int lightCount;
+
 public:
     // Constructor to initialize the color and increment count
+
     TrafficLight(string c) : color(c) {
         lightCount++;
     }
 
+
     // Destructor to decrement count when a TrafficLight is destroyed
+
     ~TrafficLight() {
         lightCount--;
     }
@@ -72,6 +88,7 @@ public:
     }
 
     // Static function to display the total number of TrafficLight instances
+
     static void displayLightCount() {
         cout << "Total Traffic Lights: " << lightCount << "\n";
     }
@@ -82,11 +99,13 @@ int TrafficLight::lightCount = 0;
 
 int main() {
     // Dynamic memory allocation for a Vehicle
+
     Vehicle* car = new Vehicle("Car", 60);
     car->displayDetails();
     car->accelerate(20);
 
     Vehicle::displayVehicleCount();
+
 
     cout << "\n";
 
@@ -96,6 +115,7 @@ int main() {
     light->changeColor("Green");
 
     // Display the current count of TrafficLight instances
+
     TrafficLight::displayLightCount();
 
     cout << "\n";
@@ -104,10 +124,14 @@ int main() {
     delete car;
     delete light;
 
+
     // Display the counts after deletion
+
     Vehicle::displayVehicleCount();
     TrafficLight::displayLightCount();
 
     return 0;
+
 }
+
 
