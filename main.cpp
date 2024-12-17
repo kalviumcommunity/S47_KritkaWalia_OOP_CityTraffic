@@ -6,21 +6,31 @@ using namespace std;
 // Class 1: Vehicle
 class Vehicle {
 private:
-    string type;
-    int speed;
+    string type;  
+    int speed;    
+
+    // Static variable to track the number of Vehicle instances
+    static int vehicleCount;
 
     // Static variable to track the number of Vehicle instances
     static int vehicleCount;
 
 public:
+
+    // Constructor to initialize vehicle attributes and increment count
+
     Vehicle(string t, int s) : type(t), speed(s) {
         vehicleCount++;
     }
+
+
+    // Destructor to decrement count when a Vehicle is destroyed
 
     ~Vehicle() {
         vehicleCount--;
     }
 
+    // Display the details of the vehicle
     void displayDetails() {
         cout << "Vehicle Type: " << type << "\n";
         cout << "Speed: " << speed << " km/h\n";
@@ -31,26 +41,38 @@ public:
         cout << type << " accelerates by " << increment << " km/h.\n";
     }
 
-    // Static function to access the static variable
+
+    // Static function to display the total number of Vehicle instances
+
     static void displayVehicleCount() {
         cout << "Total Vehicles: " << vehicleCount << "\n";
     }
 };
 
+
 int Vehicle::vehicleCount = 0; // Initialize static variable
+
 
 // Class 2: TrafficLight
 class TrafficLight {
 private:
-    string color;
+    string color;  
+
+    // Static variable to track the number of TrafficLight instances
+    static int lightCount;
 
     // Static variable to track the number of TrafficLight instances
     static int lightCount;
 
 public:
+    // Constructor to initialize the color and increment count
+
     TrafficLight(string c) : color(c) {
         lightCount++;
     }
+
+
+    // Destructor to decrement count when a TrafficLight is destroyed
 
     ~TrafficLight() {
         lightCount--;
@@ -65,31 +87,35 @@ public:
         cout << "Current Traffic Light Color: " << color << "\n";
     }
 
-    // Static function to access the static variable
+    // Static function to display the total number of TrafficLight instances
+
     static void displayLightCount() {
         cout << "Total Traffic Lights: " << lightCount << "\n";
     }
 };
 
-int TrafficLight::lightCount = 0; // Initialize static variable
+// Initialize the static variable
+int TrafficLight::lightCount = 0;
 
 int main() {
-    // Dynamic memory allocation for Vehicle
+    // Dynamic memory allocation for a Vehicle
+
     Vehicle* car = new Vehicle("Car", 60);
     car->displayDetails();
     car->accelerate(20);
 
-    // Display vehicle count
     Vehicle::displayVehicleCount();
+
 
     cout << "\n";
 
-    // Dynamic memory allocation for TrafficLight
+    // Dynamic memory allocation for a TrafficLight
     TrafficLight* light = new TrafficLight("Red");
     light->showColor();
     light->changeColor("Green");
 
-    // Display traffic light count
+    // Display the current count of TrafficLight instances
+
     TrafficLight::displayLightCount();
 
     cout << "\n";
@@ -98,9 +124,14 @@ int main() {
     delete car;
     delete light;
 
-    // Display counts after deletion
+
+    // Display the counts after deletion
+
     Vehicle::displayVehicleCount();
     TrafficLight::displayLightCount();
 
     return 0;
+
 }
+
+
