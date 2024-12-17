@@ -6,8 +6,8 @@ using namespace std;
 // Class 1: Vehicle
 class Vehicle {
 private:
-    string type;  
-    int speed;    
+    string type;  // Private data member for the vehicle type
+    int speed;    // Private data member for the vehicle speed
 
     // Static variable to track the number of Vehicle instances
     static int vehicleCount;
@@ -30,7 +30,11 @@ public:
 
     // Mutator for 'type'
     void setType(const string& t) {
-        type = t;
+        if (!t.empty()) { // Validation to ensure non-empty input
+            type = t;
+        } else {
+            cout << "Invalid type. Type cannot be empty.\n";
+        }
     }
 
     // Accessor for 'speed'
@@ -40,7 +44,11 @@ public:
 
     // Mutator for 'speed'
     void setSpeed(int s) {
-        speed = s;
+        if (s >= 0) { // Validation to ensure positive speed
+            speed = s;
+        } else {
+            cout << "Speed cannot be negative.\n";
+        }
     }
 
     // Display the details of the vehicle
@@ -51,8 +59,12 @@ public:
 
     // Accelerate the vehicle
     void accelerate(int increment) {
-        speed += increment;
-        cout << type << " accelerates by " << increment << " km/h.\n";
+        if (increment > 0) {
+            speed += increment;
+            cout << type << " accelerates by " << increment << " km/h.\n";
+        } else {
+            cout << "Acceleration increment must be positive.\n";
+        }
     }
 
     // Static function to display the total number of Vehicle instances
@@ -67,7 +79,7 @@ int Vehicle::vehicleCount = 0;
 // Class 2: TrafficLight
 class TrafficLight {
 private:
-    string color;  
+    string color;  // Private data member for the traffic light color
 
     // Static variable to track the number of TrafficLight instances
     static int lightCount;
@@ -90,7 +102,11 @@ public:
 
     // Mutator for 'color'
     void setColor(const string& c) {
-        color = c;
+        if (c == "Red" || c == "Yellow" || c == "Green") { // Validation for valid colors
+            color = c;
+        } else {
+            cout << "Invalid color. Use 'Red', 'Yellow', or 'Green'.\n";
+        }
     }
 
     // Change the color of the traffic light
@@ -118,11 +134,16 @@ int main() {
     Vehicle* car = new Vehicle("Car", 60);
     car->displayDetails();
 
-    // Use the mutator to update speed
+    // Use mutators to update type and speed
+    car->setType("Sports Car");
     car->setSpeed(80);
-    cout << "Updated Speed: " << car->getSpeed() << " km/h\n";
+    cout << "Updated Vehicle Details:\n";
+    car->displayDetails();
 
+    // Accelerate the vehicle
     car->accelerate(20);
+
+    // Display the total number of Vehicle instances
     Vehicle::displayVehicleCount();
 
     cout << "\n";
@@ -131,11 +152,14 @@ int main() {
     TrafficLight* light = new TrafficLight("Red");
     light->showColor();
 
-    // Use the mutator to update color
+    // Use mutator to change the color
     light->setColor("Yellow");
     light->showColor();
 
+    // Change the color using the changeColor function
     light->changeColor("Green");
+
+    // Display the total number of TrafficLight instances
     TrafficLight::displayLightCount();
 
     cout << "\n";
