@@ -3,8 +3,15 @@
 
 using namespace std;
 
-// Base Class: Vehicle
-class Vehicle {
+// Abstract Base Class: AbstractVehicle
+class AbstractVehicle {
+public:
+    virtual void printDetails() const = 0; // Pure Virtual Function
+    virtual ~AbstractVehicle() {}          // Virtual Destructor
+};
+
+// Base Class: Vehicle (Inherits AbstractVehicle)
+class Vehicle : public AbstractVehicle {
 private:
     string type;
     int speed;
@@ -17,19 +24,25 @@ public:
         vehicleCount++;
     }
 
-    // Parameterized Constructor (Constructor Overloading)
+    // Parameterized Constructor
     Vehicle(string t, int s) : type(t), speed(s) {
         vehicleCount++;
     }
 
-    // Destructor
-    ~Vehicle() {
+    // Virtual Destructor
+    virtual ~Vehicle() {
         vehicleCount--;
     }
 
-    void displayDetails() const {
+    // Virtual Function (Overridden in Derived Classes)
+    virtual void displayDetails() const {
         cout << "Vehicle Type: " << type << "\n";
         cout << "Speed: " << speed << " km/h\n";
+    }
+
+    // Implementation of Abstract Class Method
+    void printDetails() const override {
+        displayDetails();
     }
 
     static void displayVehicleCount() {
@@ -48,9 +61,14 @@ public:
     // Constructor
     Car(string t, int s, int d) : Vehicle(t, s), doors(d) {}
 
-    void displayCarDetails() const {
-        displayDetails();
+    // Overriding Virtual Function
+    void displayDetails() const override {
+        Vehicle::displayDetails();
         cout << "Number of Doors: " << doors << "\n";
+    }
+
+    void printDetails() const override {
+        displayDetails();
     }
 };
 
@@ -63,106 +81,38 @@ public:
     // Constructor
     Bike(string t, int s, bool c) : Vehicle(t, s), hasCarrier(c) {}
 
-    void displayBikeDetails() const {
-        displayDetails();
+    // Overriding Virtual Function
+    void displayDetails() const override {
+        Vehicle::displayDetails();
         cout << "Has Carrier: " << (hasCarrier ? "Yes" : "No") << "\n";
     }
-};
 
-// Base Class: TrafficLight
-class TrafficLight {
-private:
-    string color;
-
-    static int lightCount;
-
-public:
-    // Default Constructor
-    TrafficLight() : color("Red") {
-        lightCount++;
-    }
-
-    // Parameterized Constructor (Constructor Overloading)
-    TrafficLight(string c) : color(c) {
-        lightCount++;
-    }
-
-    // Destructor
-    ~TrafficLight() {
-        lightCount--;
-    }
-
-    void showColor() const {
-        cout << "Traffic Light Color: " << color << "\n";
-    }
-
-    static void displayLightCount() {
-        cout << "Total Traffic Lights: " << lightCount << "\n";
-    }
-};
-
-int TrafficLight::lightCount = 0;
-
-// Derived Class: SmartTrafficLight (Single Inheritance)
-class SmartTrafficLight : public TrafficLight {
-private:
-    bool sensorEnabled;
-
-public:
-    // Constructor
-    SmartTrafficLight(string c, bool s) : TrafficLight(c), sensorEnabled(s) {}
-
-    void displaySmartLightDetails() const {
-        showColor();
-        cout << "Sensor Enabled: " << (sensorEnabled ? "Yes" : "No") << "\n";
+    void printDetails() const override {
+        displayDetails();
     }
 };
 
 int main() {
-    // Demonstrating Constructor Overloading in Vehicle
-    cout << "Creating Vehicles:\n";
-    Vehicle v1;  // Default Constructor
-    v1.displayDetails();
+    // Demonstrating Abstract Class and Virtual Functions
+    cout << "Demonstrating Abstract Class and Virtual Function:\n";
 
-    Vehicle v2("Car", 80);  // Parameterized Constructor
-    v2.displayDetails();
+    // Creating an array of AbstractVehicle pointers
+    AbstractVehicle* vehicles[2];
 
-    Vehicle::displayVehicleCount();
-    cout << "\n";
+    // Assigning Car and Bike objects
+    vehicles[0] = new Car("Sedan", 120, 4);
+    vehicles[1] = new Bike("Mountain Bike", 45, true);
 
-    // Demonstrating Single Inheritance with Car
-    cout << "Creating a Car (Single Inheritance):\n";
-    Car car1("Sedan", 120, 4);
-    car1.displayCarDetails();
-    cout << "\n";
+    // Using Polymorphism
+    for (int i = 0; i < 2; i++) {
+        vehicles[i]->printDetails();
+        cout << "\n";
+    }
 
-    // Demonstrating Hierarchical Inheritance with Bike
-    cout << "Creating a Bike (Hierarchical Inheritance):\n";
-    Bike bike1("Road Bike", 50, true);
-    bike1.displayBikeDetails();
-    cout << "\n";
-
-    // Display Vehicle Count
-    Vehicle::displayVehicleCount();
-    cout << "\n";
-
-    // Demonstrating Constructor Overloading in TrafficLight
-    cout << "Creating Traffic Lights:\n";
-    TrafficLight t1;  // Default Constructor
-    t1.showColor();
-
-    TrafficLight t2("Green");  // Parameterized Constructor
-    t2.showColor();
-
-    TrafficLight::displayLightCount();
-    cout << "\n";
-
-    // Demonstrating Single Inheritance with SmartTrafficLight
-    cout << "Creating a Smart Traffic Light (Single Inheritance):\n";
-    SmartTrafficLight smartLight1("Yellow", true);
-    smartLight1.displaySmartLightDetails();
-
-    TrafficLight::displayLightCount();
+    // Cleaning up memory
+    for (int i = 0; i < 2; i++) {
+        delete vehicles[i];
+    }
 
     return 0;
 }
