@@ -23,12 +23,33 @@ public:
         vehicleCount--;
     }
 
+    // Accessor for 'type'
+    string getType() const {
+        return type;
+    }
+
+    // Mutator for 'type'
+    void setType(const string& t) {
+        type = t;
+    }
+
+    // Accessor for 'speed'
+    int getSpeed() const {
+        return speed;
+    }
+
+    // Mutator for 'speed'
+    void setSpeed(int s) {
+        speed = s;
+    }
+
     // Display the details of the vehicle
-    void displayDetails() {
+    void displayDetails() const {
         cout << "Vehicle Type: " << type << "\n";
         cout << "Speed: " << speed << " km/h\n";
     }
 
+    // Accelerate the vehicle
     void accelerate(int increment) {
         speed += increment;
         cout << type << " accelerates by " << increment << " km/h.\n";
@@ -62,13 +83,25 @@ public:
         lightCount--;
     }
 
+    // Accessor for 'color'
+    string getColor() const {
+        return color;
+    }
+
+    // Mutator for 'color'
+    void setColor(const string& c) {
+        color = c;
+    }
+
+    // Change the color of the traffic light
     void changeColor(string newColor) {
-        color = newColor;
+        setColor(newColor);
         cout << "Traffic light changes to " << color << ".\n";
     }
 
-    void showColor() {
-        cout << "Current Traffic Light Color: " << color << "\n";
+    // Show the current color of the traffic light
+    void showColor() const {
+        cout << "Current Traffic Light Color: " << getColor() << "\n";
     }
 
     // Static function to display the total number of TrafficLight instances
@@ -84,8 +117,12 @@ int main() {
     // Dynamic memory allocation for a Vehicle
     Vehicle* car = new Vehicle("Car", 60);
     car->displayDetails();
-    car->accelerate(20);
 
+    // Use the mutator to update speed
+    car->setSpeed(80);
+    cout << "Updated Speed: " << car->getSpeed() << " km/h\n";
+
+    car->accelerate(20);
     Vehicle::displayVehicleCount();
 
     cout << "\n";
@@ -93,9 +130,12 @@ int main() {
     // Dynamic memory allocation for a TrafficLight
     TrafficLight* light = new TrafficLight("Red");
     light->showColor();
-    light->changeColor("Green");
 
-    // Display the current count of TrafficLight instances
+    // Use the mutator to update color
+    light->setColor("Yellow");
+    light->showColor();
+
+    light->changeColor("Green");
     TrafficLight::displayLightCount();
 
     cout << "\n";
