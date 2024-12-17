@@ -3,11 +3,11 @@
 
 using namespace std;
 
-// Class 1: Vehicle
+// Base Class: Vehicle
 class Vehicle {
 private:
-    string type;  
-    int speed;    
+    string type;
+    int speed;
 
     static int vehicleCount;
 
@@ -39,10 +39,40 @@ public:
 
 int Vehicle::vehicleCount = 0;
 
-// Class 2: TrafficLight
+// Derived Class 1: Car (Single Inheritance)
+class Car : public Vehicle {
+private:
+    int doors;
+
+public:
+    // Constructor
+    Car(string t, int s, int d) : Vehicle(t, s), doors(d) {}
+
+    void displayCarDetails() const {
+        displayDetails();
+        cout << "Number of Doors: " << doors << "\n";
+    }
+};
+
+// Derived Class 2: Bike (Hierarchical Inheritance)
+class Bike : public Vehicle {
+private:
+    bool hasCarrier;
+
+public:
+    // Constructor
+    Bike(string t, int s, bool c) : Vehicle(t, s), hasCarrier(c) {}
+
+    void displayBikeDetails() const {
+        displayDetails();
+        cout << "Has Carrier: " << (hasCarrier ? "Yes" : "No") << "\n";
+    }
+};
+
+// Base Class: TrafficLight
 class TrafficLight {
 private:
-    string color;  
+    string color;
 
     static int lightCount;
 
@@ -73,32 +103,42 @@ public:
 
 int TrafficLight::lightCount = 0;
 
-int main() {
-    // Using the Default Constructor for Vehicle
-    Vehicle v1;
-    cout << "Vehicle created using Default Constructor:\n";
-    v1.displayDetails();
+// Derived Class: SmartTrafficLight (Single Inheritance)
+class SmartTrafficLight : public TrafficLight {
+private:
+    bool sensorEnabled;
 
-    // Using the Parameterized Constructor for Vehicle
-    Vehicle v2("Car", 60);
-    cout << "\nVehicle created using Parameterized Constructor:\n";
-    v2.displayDetails();
+public:
+    // Constructor
+    SmartTrafficLight(string c, bool s) : TrafficLight(c), sensorEnabled(s) {}
+
+    void displaySmartLightDetails() const {
+        showColor();
+        cout << "Sensor Enabled: " << (sensorEnabled ? "Yes" : "No") << "\n";
+    }
+};
+
+int main() {
+    // Demonstrating Single and Hierarchical Inheritance with Vehicle
+    cout << "Creating a Car (Single Inheritance):\n";
+    Car car1("Sports Car", 180, 2);
+    car1.displayCarDetails();
+
+    cout << "\nCreating a Bike (Hierarchical Inheritance):\n";
+    Bike bike1("Mountain Bike", 45, true);
+    bike1.displayBikeDetails();
 
     Vehicle::displayVehicleCount();
 
     cout << "\n";
 
-    // Using the Default Constructor for TrafficLight
-    TrafficLight t1;
-    cout << "Traffic Light created using Default Constructor:\n";
-    t1.showColor();
-
-    // Using the Parameterized Constructor for TrafficLight
-    TrafficLight t2("Green");
-    cout << "\nTraffic Light created using Parameterized Constructor:\n";
-    t2.showColor();
+    // Demonstrating Single Inheritance with TrafficLight
+    cout << "Creating a Smart Traffic Light (Single Inheritance):\n";
+    SmartTrafficLight smartLight1("Green", true);
+    smartLight1.displaySmartLightDetails();
 
     TrafficLight::displayLightCount();
 
     return 0;
 }
+git 
