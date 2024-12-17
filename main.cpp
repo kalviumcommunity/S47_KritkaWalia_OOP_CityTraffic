@@ -17,7 +17,7 @@ public:
         vehicleCount++;
     }
 
-    // Parameterized Constructor
+    // Parameterized Constructor (Constructor Overloading)
     Vehicle(string t, int s) : type(t), speed(s) {
         vehicleCount++;
     }
@@ -82,7 +82,7 @@ public:
         lightCount++;
     }
 
-    // Parameterized Constructor
+    // Parameterized Constructor (Constructor Overloading)
     TrafficLight(string c) : color(c) {
         lightCount++;
     }
@@ -119,22 +119,47 @@ public:
 };
 
 int main() {
-    // Demonstrating Single and Hierarchical Inheritance with Vehicle
-    cout << "Creating a Car (Single Inheritance):\n";
-    Car car1("Sports Car", 180, 2);
-    car1.displayCarDetails();
+    // Demonstrating Constructor Overloading in Vehicle
+    cout << "Creating Vehicles:\n";
+    Vehicle v1;  // Default Constructor
+    v1.displayDetails();
 
-    cout << "\nCreating a Bike (Hierarchical Inheritance):\n";
-    Bike bike1("Mountain Bike", 45, true);
-    bike1.displayBikeDetails();
+    Vehicle v2("Car", 80);  // Parameterized Constructor
+    v2.displayDetails();
 
     Vehicle::displayVehicleCount();
-
     cout << "\n";
 
-    // Demonstrating Single Inheritance with TrafficLight
+    // Demonstrating Single Inheritance with Car
+    cout << "Creating a Car (Single Inheritance):\n";
+    Car car1("Sedan", 120, 4);
+    car1.displayCarDetails();
+    cout << "\n";
+
+    // Demonstrating Hierarchical Inheritance with Bike
+    cout << "Creating a Bike (Hierarchical Inheritance):\n";
+    Bike bike1("Road Bike", 50, true);
+    bike1.displayBikeDetails();
+    cout << "\n";
+
+    // Display Vehicle Count
+    Vehicle::displayVehicleCount();
+    cout << "\n";
+
+    // Demonstrating Constructor Overloading in TrafficLight
+    cout << "Creating Traffic Lights:\n";
+    TrafficLight t1;  // Default Constructor
+    t1.showColor();
+
+    TrafficLight t2("Green");  // Parameterized Constructor
+    t2.showColor();
+
+    TrafficLight::displayLightCount();
+    cout << "\n";
+
+    // Demonstrating Single Inheritance with SmartTrafficLight
     cout << "Creating a Smart Traffic Light (Single Inheritance):\n";
-    SmartTrafficLight smartLight1("Green", true);
+    SmartTrafficLight smartLight1("Yellow", true);
     smartLight1.displaySmartLightDetails();
 
     TrafficLight::displayLightCount();
