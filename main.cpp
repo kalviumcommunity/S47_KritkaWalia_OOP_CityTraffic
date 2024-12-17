@@ -6,8 +6,8 @@ using namespace std;
 // Class 1: Vehicle
 class Vehicle {
 private:
-    string type;  
-    int speed;    
+    string type;      // Private data member for the vehicle type
+    int speed;        // Private data member for the vehicle speed
 
     // Static variable to track the number of Vehicle instances
     static int vehicleCount;
@@ -15,44 +15,56 @@ private:
 public:
     // Constructor to initialize vehicle attributes and increment count
     Vehicle(string t, int s) : type(t), speed(s) {
-        vehicleCount++;
+        vehicleCount++; // Increment count when a new Vehicle object is created
     }
 
-    // Destructor to decrement count when a Vehicle is destroyed
+    // Destructor to decrement count when a Vehicle object is destroyed
     ~Vehicle() {
-        vehicleCount--;
+        vehicleCount--; // Decrement count when a Vehicle object is deleted
     }
 
-    // Accessor for 'type'
+    // Accessor (Getter) for 'type'
     string getType() const {
         return type;
     }
 
-    // Mutator for 'type'
+    // Mutator (Setter) for 'type' with input validation
     void setType(const string& t) {
-        type = t;
+        if (!t.empty()) { // Ensure the type is not an empty string
+            type = t;
+        } else {
+            cout << "Invalid type. Type cannot be empty.\n";
+        }
     }
 
-    // Accessor for 'speed'
+    // Accessor (Getter) for 'speed'
     int getSpeed() const {
         return speed;
     }
 
-    // Mutator for 'speed'
+    // Mutator (Setter) for 'speed' with input validation
     void setSpeed(int s) {
-        speed = s;
+        if (s >= 0) { // Ensure the speed is non-negative
+            speed = s;
+        } else {
+            cout << "Speed cannot be negative.\n";
+        }
     }
 
-    // Display the details of the vehicle
+    // Function to display the details of the vehicle
     void displayDetails() const {
         cout << "Vehicle Type: " << type << "\n";
         cout << "Speed: " << speed << " km/h\n";
     }
 
-    // Accelerate the vehicle
+    // Function to accelerate the vehicle by a given increment
     void accelerate(int increment) {
-        speed += increment;
-        cout << type << " accelerates by " << increment << " km/h.\n";
+        if (increment > 0) {
+            speed += increment;
+            cout << type << " accelerates by " << increment << " km/h.\n";
+        } else {
+            cout << "Acceleration increment must be positive.\n";
+        }
     }
 
     // Static function to display the total number of Vehicle instances
@@ -61,45 +73,49 @@ public:
     }
 };
 
-// Initialize the static variable
+// Initialize the static variable for Vehicle count
 int Vehicle::vehicleCount = 0;
 
 // Class 2: TrafficLight
 class TrafficLight {
 private:
-    string color;  
+    string color;     // Private data member for the traffic light color
 
     // Static variable to track the number of TrafficLight instances
     static int lightCount;
 
 public:
-    // Constructor to initialize the color and increment count
+    // Constructor to initialize the traffic light color and increment count
     TrafficLight(string c) : color(c) {
-        lightCount++;
+        lightCount++; // Increment count when a new TrafficLight object is created
     }
 
-    // Destructor to decrement count when a TrafficLight is destroyed
+    // Destructor to decrement count when a TrafficLight object is destroyed
     ~TrafficLight() {
-        lightCount--;
+        lightCount--; // Decrement count when a TrafficLight object is deleted
     }
 
-    // Accessor for 'color'
+    // Accessor (Getter) for 'color'
     string getColor() const {
         return color;
     }
 
-    // Mutator for 'color'
+    // Mutator (Setter) for 'color' with input validation
     void setColor(const string& c) {
-        color = c;
+        if (c == "Red" || c == "Yellow" || c == "Green") { // Ensure color is valid
+            color = c;
+        } else {
+            cout << "Invalid color. Use 'Red', 'Yellow', or 'Green'.\n";
+        }
     }
 
-    // Change the color of the traffic light
+    // Function to change the color of the traffic light
     void changeColor(string newColor) {
-        setColor(newColor);
+        setColor(newColor); // Call setColor for validation
         cout << "Traffic light changes to " << color << ".\n";
     }
 
-    // Show the current color of the traffic light
+    // Function to display the current color of the traffic light
     void showColor() const {
         cout << "Current Traffic Light Color: " << getColor() << "\n";
     }
@@ -110,43 +126,51 @@ public:
     }
 };
 
-// Initialize the static variable
+// Initialize the static variable for TrafficLight count
 int TrafficLight::lightCount = 0;
 
 int main() {
-    // Dynamic memory allocation for a Vehicle
+    // Dynamic memory allocation for a Vehicle object
     Vehicle* car = new Vehicle("Car", 60);
+    car->displayDetails(); // Display initial vehicle details
+
+    // Update vehicle type and speed using setters
+    car->setType("Sports Car");
+    car->setSpeed(80);
+    cout << "Updated Vehicle Details:\n";
     car->displayDetails();
 
-    // Use the mutator to update speed
-    car->setSpeed(80);
-    cout << "Updated Speed: " << car->getSpeed() << " km/h\n";
-
+    // Accelerate the vehicle
     car->accelerate(20);
+
+    // Display total number of Vehicle instances
     Vehicle::displayVehicleCount();
 
     cout << "\n";
 
-    // Dynamic memory allocation for a TrafficLight
+    // Dynamic memory allocation for a TrafficLight object
     TrafficLight* light = new TrafficLight("Red");
-    light->showColor();
+    light->showColor(); // Display initial traffic light color
 
-    // Use the mutator to update color
+    // Change the traffic light color using the setter
     light->setColor("Yellow");
     light->showColor();
 
+    // Change the traffic light color using the changeColor function
     light->changeColor("Green");
+
+    // Display total number of TrafficLight instances
     TrafficLight::displayLightCount();
 
     cout << "\n";
 
-    // Freeing allocated memory
-    delete car;
-    delete light;
+    // Free allocated memory
+    delete car;   // Delete Vehicle object
+    delete light; // Delete TrafficLight object
 
-    // Display the counts after deletion
+    // Display counts after deletion
     Vehicle::displayVehicleCount();
     TrafficLight::displayLightCount();
 
-    return 0;
+    return 0; // End of the program
 }
